@@ -1,3 +1,6 @@
+class GardenManager:
+    pass
+
 class Garden:
     def __init__(self, name):
         self.name = name
@@ -21,11 +24,21 @@ class Garden:
             else:
                 print(plant.show_data())
                 # print(plant.plant_type)
-    # def show_plants(self):
-    #     for plant in self.plants:
-    #         print(plant.name)
-    # class GardenStats:
-    #     pass
+    def plants_summary(self):
+        t_growth = 0
+        for plant in self.plants:
+            t_growth += plant.total_growth()
+        print(f"Plants Added: {self.plants.__len__()} Total growth: {t_growth}cm")
+        plants = {
+            "regular": 0,
+            "flowering": 0,
+            "prize flowers": 0
+        }
+        for plant in self.plants:
+            if plant.plant_type in plants:
+                plants[plant.plant_type] += 1
+        print(f"Plant types: {plants["regular"]} regular, {plants["flowering"]} flowering, {plants["prize flowers"]} prize flowers")
+
     
 class Plant:
     plant_type = "regular"
@@ -46,23 +59,23 @@ class Plant:
         
 class FloweringPlant(Plant):
     plant_type = "flowering"
-    plant_count = 0
+    Flower_count = 0
     def __init__(self, name, height, age, color, bloom_status):
         super().__init__(name, height, age)
         self.color = color
         self.bloom_status = bloom_status
-        FloweringPlant.plant_count += 1
+        FloweringPlant.Flower_count += 1
     def show_data(self):
         base_data = self.base_data()
         return f"- {base_data} {self.color} flowers ({self.bloom_status})"
 
 class PrizeFlower(FloweringPlant):
     plant_type = "prize flowers"
-    plant_count = 0
+    PrizeFlower = 0
     def __init__(self, name, height, age, color, bloom_status, prize):
         super().__init__(name, height, age, color, bloom_status)
         self.prize = prize
-        PrizeFlower.plant_count += 1
+        PrizeFlower.PrizeFlower += 1
     def show_data(self):
         base_data = self.base_data()
         return f"- {base_data} {self.color} flowers ({self.bloom_status}), Prize points: {self.prize}"
@@ -75,14 +88,22 @@ p1 = Plant("Oak Tree", 20, 19)
 p2 = FloweringPlant("Rose", 4, 30, "green", "blooming")
 p3 = PrizeFlower("Sunflower", 4, 30, "red", "blooming", 20)
 
+
 g1 = Garden("Alice's")
 g1.add_plant(p1)
 g1.add_plant(p2)
 g1.add_plant(p3)
 
+
 print()
 
 g1.grow_plants()
 
+print()
+
 print("=== Alice's Garden Report ===")
 g1.plants_in_garden()
+
+print()
+
+g1.plants_summary()
