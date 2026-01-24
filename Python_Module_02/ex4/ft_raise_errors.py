@@ -1,4 +1,15 @@
 def check_plant_health(plant_name, water_level, sunlight_hours):
+    """
+    Validates a plant's name, water level, and sunlight hours.
+
+    Args:
+        plant_name: The name of the plant.
+        water_level: A value between 1 and 10.
+        sunlight_hours: A value between 2 and 12.
+
+    Raises:
+        ValueError: If the inputs are invalid.
+    """
     if (plant_name == ""):
         raise ValueError("Error: Plant name cannot be empty!\n")
     elif (not (water_level >= 1 and water_level <= 10)):
@@ -22,6 +33,9 @@ def check_plant_health(plant_name, water_level, sunlight_hours):
 
 
 def test_plant_checks():
+    """
+    Tests the plant health validation function with different values.
+    """
     print("=== Garden Plant Health Checker ===\n")
     try:
         print("Testing good values...")
@@ -48,4 +62,6 @@ def test_plant_checks():
         print(e)
 
     print("All error raising tests completed!")
+
+
 test_plant_checks()

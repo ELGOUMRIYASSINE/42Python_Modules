@@ -1,5 +1,15 @@
 def garden_operations(type_error):
+    """
+    Simulates various types of errors based on the input value.
 
+    Args:
+        type_error: An integer specifying which error to simulate.
+                    1 - ValueError
+                    2 - ZeroDivisionError
+                    3 - FileNotFoundError
+                    4 - KeyError
+                    5 - Multiple errors
+    """
     if (type_error == 1):
         print("Testing ValueError...")
         x = int("abc")
@@ -30,10 +40,16 @@ def garden_operations(type_error):
 
 
 def test_error_types():
+    """
+    Tests different types of errors by calling `garden_operations`.
+
+    Catches specific exceptions for each error type and prints a message.
+    """
     try:
         garden_operations(1)
     except ValueError:
         print("Caught ValueError: invalid literal for int()\n")
+
     try:
         garden_operations(2)
     except ZeroDivisionError:

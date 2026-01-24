@@ -1,24 +1,33 @@
 class GardenError(Exception):
+    """Base class for all garden-related errors"""
     pass
 
 
 class PlantError(GardenError):
+    """Raised when there is an issue adding a plant"""
+
     def __str__(self):
         return "Error adding plant: Plant name cannot be empty!\n"
 
 
 class WaterError(GardenError):
+    """Raised when there is an issue with water levels"""
     pass
 
 
 class GardenManager:
+    """Manages the plants, water supply, and health of the garden"""
+
     adding_process = 0
 
     def __init__(self, tank):
+        """Initializes the GardenManager with a water tank
+        and an empty plant list"""
         self.plants = []
         self.tank = tank
 
     def add(self, object):
+        """Adds a plant to the garden"""
         try:
             if (self.adding_process == 0):
                 print("Adding plants to garden...")
@@ -32,6 +41,8 @@ class GardenManager:
             print(e)
 
     def water_plants(self):
+        """Waters all plants in the garden, raises an error if
+        there is not enough water"""
         print("Watering plants...")
         try:
             if self.tank <= 0:
@@ -49,6 +60,8 @@ class GardenManager:
             print("Closing watering system\n")
 
     def check_health(self):
+        """Checks the health of all plants based on water and
+        sunlight levels"""
         try:
             print("Checking plant health...")
             for plant in self.plants:
@@ -76,13 +89,19 @@ class GardenManager:
 
 
 class Plant:
+    """Represents a single plant with a name, water level, and
+    sunlight level"""
+
     def __init__(self, name, water, sun):
+        """Initializes a plant with its name, water,
+        and sunlight requirements"""
         self.name = name
         self.water = water
         self.sun = sun
 
 
 def systeme():
+    """Runs the garden management system"""
     print("=== Garden Management System ===\n")
     p1 = Plant("maticha", 0, 4)
     p2 = Plant("dela7", -10, 12)
