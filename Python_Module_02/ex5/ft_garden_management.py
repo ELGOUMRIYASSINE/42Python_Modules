@@ -101,7 +101,7 @@ class Plant:
 
 
 def systeme():
-    """Runs the garden management system"""
+    """Runs the garden management system """
     print("=== Garden Management System ===\n")
     p1 = Plant("maticha", 0, 4)
     p2 = Plant("dela7", -10, 12)
