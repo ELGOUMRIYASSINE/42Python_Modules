@@ -8,7 +8,6 @@ data = {
         'first_blood',
     ],
     'bob': [
-        'mounire',
         'first_blood',
         'level_master',
         'boss_hunter',
@@ -59,37 +58,45 @@ def Tracker(data):
     print("=== Achievement Tracker System ===\n")
     unique_achievements = set()
     all_common = None
+    unique = set()
     # all_unique = None
     for player, achivement in data.items():
+
         # for player, achivement in data.items():
         print(f"Player {player} achievements: {set(achivement)}")
+
         # for ach in achivement:
         unique_achievements = unique_achievements.union(achivement)
-        
+
         # for common achievements:
         if (all_common is None):
             all_common = set(achivement)
         else:
             all_common = all_common.intersection(set(achivement))
-        # for items that owned by one player and not owned by another player:
-        # if (all_unique is None):
-        #     all_unique = set(achivement)
-        # else:
-        #     all_unique = all_unique.difference(set(achivement))
-        #     # unique = unique.difference(all_unique)
-        #     # final_unique = final_unique.union(unique)
+            unique = unique.union(set(achivement))
+
+    rare = set()
+    for achievement in unique_achievements:
+        count = 0
+        for player in data.values():
+            if achievement in player:
+                count += 1
+        if count == 1:
+            rare = rare.union({achievement})
+
     print()
     print("=== Achievement Analytics ===")
 
     print(f"All unique achievements unlocked: {unique_achievements}")
     print(f"Total unique achievements unlocked: {len(unique_achievements)}\n")
-    
+
     print(f"Common to all players: {all_common}")
-    # print(f"Rare achievements (1 player):  {all_unique}")
+    print(f"Rare achievements (1 player):  {rare}\n")
+
+    print(f"Alice vs Bob common: "
+          f"{set(data['alice']).intersection(set(data['bob']))}")
+    print(f"Alice unique: {set(data['alice']).difference(set(data['bob']))}")
+    print(f"Bob unique: {set(data['bob']).difference(set(data['alice']))}")
 
 
-        
 Tracker(data)
-
-
-
