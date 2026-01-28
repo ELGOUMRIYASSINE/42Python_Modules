@@ -346,6 +346,4 @@ def main():
 
 
 if __name__ == "__main__":
-    # main()
-    test = PixelDataGenerator()
-    print(test._inventory_for_system())
+    main()

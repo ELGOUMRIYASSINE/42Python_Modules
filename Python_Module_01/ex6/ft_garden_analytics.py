@@ -1,3 +1,13 @@
+class myclassmethod:
+    def __init__(self, func):
+        self.func = func
+        
+    def __get__(self, obj, objtype=None):
+        def wrapper(*arg, **kwarg):
+            return self.func(objtype, *arg, **kwarg)
+        return wrapper
+
+
 class GardenManager:
     """
     Manages multiple gardens and keeps track of statistics.
@@ -18,11 +28,11 @@ class GardenManager:
         print(f"{garden.name} Added to The Garden Manager Systeme ✔")
         GardenManager.total_gardens += 1
 
-    @classmethod
+    @myclassmethod
     def get_total_gardens(cls):
         """Shows how many gardens are currently being managed in total."""
         print(f"Total gardens managed: {cls.total_gardens}")
-
+    get_total_gardens = myclassmethod(get_total_gardens)
     @classmethod
     def create_garden_network(cls):
         """
