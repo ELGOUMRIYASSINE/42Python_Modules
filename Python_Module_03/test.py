@@ -1,11 +1,6 @@
-primes = [1, 2, 3, 4]
+a = ["Texas", "California", "Florida"] # states
+b = ["Austin", "Sacramento", "Tallahassee"] # capital
 
-it = primes.__iter__()
+res = {state:capital for state, capital in zip(a, b)}
 
-while True:
-    try:
-        x = next(it)
-        print(x)
-    except StopIteration:
-        break
-    
+print(res)

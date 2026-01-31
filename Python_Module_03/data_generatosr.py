@@ -348,4 +348,4 @@ def main():
 if __name__ == "__main__":
     # main()
     test = PixelDataGenerator()
-    print(test._events_for_stream())
+    print(test._analytics_for_dashboard())
