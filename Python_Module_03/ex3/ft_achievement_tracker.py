@@ -1,3 +1,8 @@
+"""Achievement Tracker System.
+
+Tracks and analyzes player achievements using sets.
+"""
+
 data = {
     'alice': [
         'first_blood',
@@ -54,22 +59,19 @@ data = {
 }
 
 
-def Tracker(data):
+def tracker(data):
+    """Analyze player achievements and find patterns"""
     print("=== Achievement Tracker System ===\n")
     unique_achievements = set()
     all_common = None
     unique = set()
-    # all_unique = None
-    for player, achivement in data.items():
 
-        # for player, achivement in data.items():
+    for player, achivement in data.items():
         print(f"Player {player} achievements: {set(achivement)}")
 
-        # for ach in achivement:
         unique_achievements = unique_achievements.union(achivement)
 
-        # for common achievements:
-        if (all_common is None):
+        if all_common is None:
             all_common = set(achivement)
         else:
             all_common = all_common.intersection(set(achivement))
@@ -99,4 +101,4 @@ def Tracker(data):
     print(f"Bob unique: {set(data['bob']).difference(set(data['alice']))}")
 
 
-Tracker(data)
+tracker(data)
