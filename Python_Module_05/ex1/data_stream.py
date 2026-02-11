@@ -4,7 +4,7 @@ from typing import Any, List, Optional, Union, Dict
 
 class DataStream(ABC):
 
-    def __init__(self, stream_id):
+    def __init__(self, stream_id: str) -> None:
         self.stream_id = stream_id
 
     @abstractmethod
@@ -31,7 +31,7 @@ class DataStream(ABC):
 
 
 class SensorStream(DataStream):
-    def __init__(self, stream_id):
+    def __init__(self, stream_id: str) -> None:
         super().__init__(stream_id)
         self.stream_type = "Environmental Data"
         self.total_readings = 0
@@ -54,7 +54,7 @@ class SensorStream(DataStream):
 
 
 class TransactionStream(DataStream):
-    def __init__(self, stream_id):
+    def __init__(self, stream_id: str) -> None:
         super().__init__(stream_id)
         self.stream_type = "Financial Data"
         self.total_operations = 0
@@ -88,7 +88,7 @@ class TransactionStream(DataStream):
 
 
 class EventStream(DataStream):
-    def __init__(self, stream_id):
+    def __init__(self, stream_id: str) -> None:
         super().__init__(stream_id)
         self.stream_type = "System Events"
         self.total_events = 0
@@ -117,10 +117,10 @@ class EventStream(DataStream):
 
 
 class StreamProcessor:
-    def __init__(self):
+    def __init__(self) -> None:
         self.streams = []
 
-    def add_stream(self, stream: DataStream):
+    def add_stream(self, stream: DataStream) -> None:
         self.streams.append(stream)
 
     def process_all(
@@ -160,7 +160,7 @@ if __name__ == "__main__":
     # data to test
     sensor_batch_1 = ["temp:22.5", "humidity:65", "pressure:1013"]
     transaction_batch_1 = ["buy:100", "sell:150", "buy:75"]
-    event_batch_1 = ["login", "error", "logout"]
+    event_batch_1 = ["login", "error", "logout", "logout"]
 
     print("=== CODE NEXUS - POLYMORPHIC STREAM SYSTEM ===\n")
     s_stream = SensorStream("S1_10")
