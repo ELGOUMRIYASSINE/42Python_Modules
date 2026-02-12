@@ -1,10 +1,9 @@
-from typing import Protocol, runtime_checkable
+class test:
+    meow = "Akhi"
+    def show(self):
+        print("Hello")
 
-@runtime_checkable
-class CanSpeak(Protocol):
-    def speak(self) -> str: ...
 
-class Rock:
-    pass
+a1 = test()
 
-print(isinstance(Rock(), CanSpeak))
+print(a1.meow)
