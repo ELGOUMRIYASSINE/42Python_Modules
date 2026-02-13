@@ -1,9 +1,6 @@
-class test:
-    meow = "Akhi"
-    def show(self):
-        print("Hello")
+data = {"KK": 120}
 
-
-a1 = test()
-
-print(a1.meow)
+if "CVS" in data:
+    print("YES")
+elif "KK" in data:
+    print("KK")
