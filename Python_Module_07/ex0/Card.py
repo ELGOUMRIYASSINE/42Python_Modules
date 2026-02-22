@@ -13,7 +13,8 @@ class Card(ABC):
         pass
 
     def get_card_info(self):
-        return f"Card: {self.name}, Cost: {self.cost}, Rarity: {self.rarity}"
+        data = {'name': self.name, 'Cost': self.cost, 'Rarity': self.rarity, 'Type': 'Creature'}
+        return data
 
     def is_playable(self, available_mana: int) -> bool:
         return self.cost <= available_mana
