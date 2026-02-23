@@ -43,21 +43,33 @@
 
 # main()
 
-from abc import ABC, abstractmethod
+# from abc import ABC, abstractmethod
 
-class A(ABC):
-    # @abstractmethod
-    # def run(self):
-    #     pass
+# class A(ABC):
+#     # @abstractmethod
+#     # def run(self):
+#     #     pass
     
-    @property
-    def value(self):
-        return 20
+#     @property
+#     def value(self):
+#         return 20
 
-class H(A):
-    pass
+# class H(A):
+#     pass
 
 
 
-print(H().value)#
-#  print(A.__abstractmethods__)
+# print(H().value)#
+#  print(A.__abstractmethods__
+
+# a = ['A', "b", "C"]
+
+# import random
+# random.shuffle(a)
+
+# print(a.pop(0))
+# print(a)
+
+from ex0.Card import Card
+
+print("Hello world")

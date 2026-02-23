@@ -2,6 +2,7 @@ import typing
 from Card import Card
 
 class CreatureCard(Card):
+    card_type = "creature"
     def __init__(self, name, cost, rarity, attack, health):
         super().__init__(name, cost, rarity)
         self.attack = attack

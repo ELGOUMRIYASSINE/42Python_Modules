@@ -1,0 +1,24 @@
+import sys
+sys.path.append("/home/yelgoumr/yelgoumr/1337_projects/42Python_Modules/Python_Module_07/ex0")
+
+from Card import Card
+
+class ArtifactCard(Card):
+    card_type = "artifact"
+    def __init__(self, name, cost, rarity, durability: int, effect: str):
+        super().__init__(name, cost, rarity)
+        self.durability = durability
+        self.effect = effect
+    def play(self, game_state: dict) -> dict:
+        return {
+            "card_played": self.name,
+            "mana_used": self.cost,
+            "effect": f"Permanent: {self.effect}"
+        }
+    def activate_ability(self) -> dict:
+        return {
+            "artifact": self.name,
+            "ability": self.effect
+        }
+
+test = ArtifactCard("cc", 100, "hh", 80, "ll")

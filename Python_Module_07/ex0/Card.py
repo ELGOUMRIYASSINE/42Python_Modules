@@ -13,7 +13,7 @@ class Card(ABC):
         pass
 
     def get_card_info(self):
-        data = {'name': self.name, 'Cost': self.cost, 'Rarity': self.rarity, 'Type': 'Creature'}
+        data = {'name': self.name, 'Cost': self.cost, 'Rarity': self.rarity, 'Type': 'Creature'} # hadi bedalha 'Type': 'Creature' !!!!
         return data
 
     def is_playable(self, available_mana: int) -> bool:
