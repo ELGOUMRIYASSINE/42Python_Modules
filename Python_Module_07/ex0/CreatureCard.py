@@ -1,5 +1,5 @@
 import typing
-from Card import Card
+from .Card import Card
 
 class CreatureCard(Card):
     card_type = "creature"

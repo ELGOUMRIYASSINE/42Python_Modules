@@ -13,6 +13,8 @@ class EliteCard(Card, Combatable, Magical):
         self.attack_power = attack_power
         self.defense = defense
         self.mana = mana
+    def play():
+        pass
 
 print("Hello")
 

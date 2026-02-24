@@ -1,3 +1,9 @@
-from ex0.Card import
+from ex0.Card import Card
 
-print("Hello")
+
+print("=== DataDeck Ability System ===\n")
+
+print("EliteCard capabilities:")
+
+
+# print("Hello")
