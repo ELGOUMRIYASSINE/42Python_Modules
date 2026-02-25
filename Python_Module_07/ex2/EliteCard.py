@@ -13,9 +13,27 @@ class EliteCard(Card, Combatable, Magical):
         self.attack_power = attack_power
         self.defense = defense
         self.mana = mana
-    def play():
-        pass
 
+    def play(self):
+        pass
+    
+    def attack(self, target):
+        return {
+            "damage": self.attack_power,
+            "target": target.name,
+            "attacker": self.name,
+            "combat_type": "melee"
+        }
+
+    def defend(self, incoming_damage):
+        damage_after_defense = max(0, incoming_damage - self.defense)
+        return {
+            "damage_taken": damage_after_defense,
+            "defender": self.name,
+            "remaining_defense": self.defense - incoming_damage,
+            "still_alive": damage_after_defense < self.defense
+        }
+    
 print("Hello")
 
 
