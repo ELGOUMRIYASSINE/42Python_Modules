@@ -1,7 +1,4 @@
-import sys
-sys.path.append("/home/yelgoumr/yelgoumr/1337_projects/42Python_Modules/Python_Module_07/ex0")
-
-from Card import Card
+from ex0.Card import Card
 
 class ArtifactCard(Card):
     card_type = "artifact"

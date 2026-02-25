@@ -1,5 +1,8 @@
-from ex0.Card import Card
+from .EliteCard import EliteCard
 
+
+elitecard = EliteCard("Arcane Warrior", 5, 7, 3, 20, "Legendary")
+enemy = EliteCard("Enemy", 4, 3, 4, 15, "Normal")
 
 print("=== DataDeck Ability System ===\n")
 
@@ -12,5 +15,12 @@ print("Playing Arcane Warrior (Elite Card):\n")
 
 print("Combat phase:")
 
+print(f"Attack result: {elitecard.attack(enemy)}")
+print(f"Defense result: {elitecard.defend(7)}\n")
 
-# print("Hello")
+print("Magic phase:")
+
+print(f"Spell cast: {elitecard.cast_spell('Fireball', [enemy])}")
+print(f"Mana channel: {elitecard.channel_mana(5)}\n")
+
+print("Multiple interface implementation successful!")

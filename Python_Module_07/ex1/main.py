@@ -1,10 +1,7 @@
-import sys
-sys.path.append("/home/yelgoumr/yelgoumr/1337_projects/42Python_Modules/Python_Module_07/ex0")
-
-from Deck import Deck
-from ArtifactCard import ArtifactCard
-from SpellCard import SpellCard
-from CreatureCard import CreatureCard
+from .Deck import Deck
+from .ArtifactCard import ArtifactCard
+from .SpellCard import SpellCard
+from ex0.CreatureCard import CreatureCard
 
 print("=== DataDeck Deck Builder ===\n")
 print("Building deck with different card types...")

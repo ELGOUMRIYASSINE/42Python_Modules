@@ -1,75 +1,32 @@
-# class Meta(type):
-
-#     def __new__(cls, name, bases, namespace):
-#         print("class created")
-#         print(namespace)
-#         return super().__new__(cls, name, bases, namespace)
-
-# class BB():
-#     def __new__(cls):
-#         print("class created from BB")
-
-# class B(BB):
-#     g = 30
-
-# class A(metaclass=Meta):
-#     x = 5
-#     y = 10
-
-# import time
-
-# class LoadTimeMeta(type):
-#     base_time = time.perf_counter()
-
-#     def __new__(mcs, name, bases, namespace):
-#         namespace['__class_load_time__'] = time.perf_counter() - LoadTimeMeta.base_time
-#         print(mcs, name, bases, namespace)
-#         return super().__new__(mcs, name, bases, namespace)
+from abc import ABC, abstractmethod
 
 
-# class  A(metaclass=LoadTimeMeta):
-#     pass
+class PaymentStrategy(ABC):
+    @abstractmethod
+    def pay(self, amount: float) -> str:
+        pass
 
 
-# class B(A):
-#     pass
-
-# print(A.__class_load_time__)
-# print(B.__class_load_time__)
-# def main():
-#     a = A()
-#     print(f'{type(a)=}')
-#     print(f'{type(A)=}')
-
-# main()
-
-# from abc import ABC, abstractmethod
-
-# class A(ABC):
-#     # @abstractmethod
-#     # def run(self):
-#     #     pass
-    
-#     @property
-#     def value(self):
-#         return 20
-
-# class H(A):
-#     pass
+class CreditCardPayment(PaymentStrategy):
+    def pay(self, amount):
+        return f"Paid {amount} using Credit Card"
 
 
+class PayPalPayment(PaymentStrategy):
+    def pay(self, amount):
+        return f"Paid {amount} using PayPal"
 
-# print(H().value)#
-#  print(A.__abstractmethods__
 
-# a = ['A', "b", "C"]
+class Checkout:
+    def __init__(self, strategy: PaymentStrategy):
+        self.strategy = strategy
 
-# import random
-# random.shuffle(a)
+    def process_payment(self, amount):
+        return self.strategy.pay(amount)
 
-# print(a.pop(0))
-# print(a)
 
-from ex0.Card import Card
+checkout = Checkout(CreditCardPayment())
+print(checkout.process_payment(100))
 
-print("Hello world")
+checkout.strategy = PayPalPayment()
+print(checkout.process_payment(100))

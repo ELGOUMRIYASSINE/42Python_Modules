@@ -1,5 +1,5 @@
 import sys
-from CreatureCard import CreatureCard
+from .CreatureCard import CreatureCard
 
 print("=== DataDeck Card Foundation ===\n")
 
