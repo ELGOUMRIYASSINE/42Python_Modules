@@ -16,8 +16,30 @@ class AggressiveStrategy(GameStrategy):
         return targets
 
     def execute_turn(self, hand: list, battlefield: list) -> dict:
+        cards_played = []
+        mana_used = 0
+        damage_dealt = 0
+
+        for card in hand:
+            if card.card_type == "Creature":
+                cards_played.append(card.name)
+                mana_used += card.cost
+                damage_dealt += card.attack  # creature attack damage
+
+            elif card.card_type == "Spell":
+                cards_played.append(card.name)
+                mana_used += card.cost
+                damage_dealt += 3  # simple fixed spell damage
+
+            # Ignore artifacts in aggressive strategy
+            elif card.card_type == "Artifact":
+                continue
+
+        targets = self.prioritize_targets(battlefield)
+
         return {
-            "actions": ["play_creature", "attack"],
-            "cards_played": [card.name for card in hand if card.card_type == "creature"],
-            "targets_prioritized": self.prioritize_targets(battlefield)
+            "cards_played": cards_played,
+            "mana_used": mana_used,
+            "targets_attacked": [target.name for target in targets],
+            "damage_dealt": damage_dealt
         }
