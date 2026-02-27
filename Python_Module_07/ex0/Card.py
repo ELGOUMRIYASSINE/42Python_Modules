@@ -1,5 +1,5 @@
-import typing
 from abc import ABC, abstractmethod
+
 
 class Card(ABC):
 
@@ -13,11 +13,13 @@ class Card(ABC):
         pass
 
     def get_card_info(self):
-        data = {'name': self.name, 'Cost': self.cost, 'Rarity': self.rarity, 'Type': 'Creature'} # hadi bedalha 'Type': 'Creature' !!!!
+        data = {
+            'name': self.name,
+            'Cost': self.cost,
+            'Rarity': self.rarity,
+            'Type': self.__class__.__name__,
+        }
         return data
 
     def is_playable(self, available_mana: int) -> bool:
         return self.cost <= available_mana
-
-
-    

@@ -1,11 +1,12 @@
-from typing import Any
 from ex4.TournamentCard import TournamentCard
+
 
 class TournamentPlatform:
     def __init__(self):
         self.cards = {}
         self.matches = []
         self.matches_played = 0
+
     def register_card(self, card: TournamentCard) -> str:
         card_id = card.name.lower().replace(" ", "_")
         self.cards[card_id] = card
@@ -36,22 +37,66 @@ class TournamentPlatform:
         return {
             "winner": winner,
             "loser": loser,
-            "winner_rating": self.cards[winner].rating if winner != "draw" else None,
-            "loser_rating": self.cards[loser].rating if loser != "draw" else None,
+            "winner_rating": (
+                self.cards[winner].rating
+                if winner != "draw"
+                else None
+            ),
+            "loser_rating": (
+                self.cards[loser].rating
+                if loser != "draw"
+                else None
+            ),
         }
 
     def get_leaderboard(self) -> list:
-        cards_ratings = [(card_id, card.rating) for card_id, card in self.cards.items()]
-        sorted_cards = sorted(cards_ratings, key=lambda x: x[1], reverse=True)
-        print(f"1. {sorted_cards[0][0]} - Rating: {sorted_cards[0][1]} (1-0)")
+        cards_ratings = [
+            (card_id, card.rating)
+            for card_id, card in self.cards.items()
+        ]
+
+        sorted_cards = sorted(
+            cards_ratings,
+            key=lambda x: x[1],
+            reverse=True
+        )
+
+        if sorted_cards:
+            first_id, first_rating = sorted_cards[0]
+            print(
+                f"1. {first_id} - Rating: "
+                f"{first_rating} (1-0)"
+            )
+
         if len(sorted_cards) > 1:
-            print(f"2. {sorted_cards[1][0]} - Rating: {sorted_cards[1][1]} (0-1)")
+            second_id, second_rating = sorted_cards[1]
+            print(
+                f"2. {second_id} - Rating: "
+                f"{second_rating} (0-1)"
+            )
+
         return sorted_cards
 
     def generate_tournament_report(self) -> dict:
+        total_cards = len(self.cards)
+
+        if self.cards:
+            avg_rating = (
+                sum(card.rating for card in self.cards.values())
+                / total_cards
+            )
+        else:
+            avg_rating = 0
+
+        platform_status = (
+            "active"
+            if self.matches_played > 0
+            else "inactive"
+        )
+
         return {
-            "total_cards": len(self.cards),
+            "total_cards": total_cards,
             "matches_played": self.matches_played,
-            "avg_rating": sum(card.rating for card in self.cards.values()) / len(self.cards) if self.cards else 0,
-            "platform_status": "active" if self.matches_played > 0 else "inactive"
+            "avg_rating": avg_rating,
+            "platform_status": platform_status,
         }

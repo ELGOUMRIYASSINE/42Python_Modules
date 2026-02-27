@@ -23,7 +23,12 @@ class GameEngine:
         self.hand = []
         self.battlefield_targets = []
 
-    def configure_engine(self, factory: CardFactory, strategy: GameStrategy) -> None:
+    def configure_engine(
+        self,
+        factory: CardFactory,
+        strategy: GameStrategy
+    ) -> None:
+
         self.factory = factory
         self.strategy = strategy
         self.turns_simulated = 0
@@ -46,9 +51,10 @@ class GameEngine:
         return turn_result
 
     def get_engine_status(self) -> dict:
+        st_used = self.strategy.get_strategy_name() if self.strategy else None
         return {
             "turns_simulated": self.turns_simulated,
-            "strategy_used": self.strategy.get_strategy_name() if self.strategy else None,
+            "strategy_used": st_used,
             "total_damage": self.total_damage,
             "cards_created": len(self.hand)
         }

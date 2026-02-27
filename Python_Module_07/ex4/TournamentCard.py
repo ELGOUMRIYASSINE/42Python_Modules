@@ -1,6 +1,3 @@
-import random
-from typing import Any
-
 from ex0.Card import Card
 from ex2.Combatable import Combatable
 from ex4.Rankable import Rankable
@@ -10,12 +7,12 @@ class TournamentCard(Card, Combatable, Rankable):
     BASE_RATING = 1000
 
     def __init__(self, name, cost, rarity, attack, health):
-            super().__init__(name, cost, rarity)
-            self.attack_power = attack
-            self.health = health
-            self.wins = 0
-            self.losses = 0
-            self.rating = 1200
+        super().__init__(name, cost, rarity)
+        self.attack_power = attack
+        self.health = health
+        self.wins = 0
+        self.losses = 0
+        self.rating = 1200
 
     def play(self, game_state: dict) -> dict:
         return {"card_played": self.name}
@@ -27,12 +24,12 @@ class TournamentCard(Card, Combatable, Rankable):
             return {"winner": target.name}
         else:
             return {"winner": "draw"}
-    
+
     def defend(self, incoming_attack: int) -> bool:
         damage_taken = max(0, incoming_attack - self.health)
         self.health -= damage_taken
         return self.health > 0
-    
+
     def get_combat_stats(self) -> dict:
         return {"attack": self.attack_power, "health": self.health}
 
@@ -48,10 +45,11 @@ class TournamentCard(Card, Combatable, Rankable):
         self.rating = self.calculate_rating()
 
     def get_rank_info(self) -> dict:
-        print(f"{self.name} (ID: {self.name.lower().replace(' ', '_')})\n")
+        print(f"{self.name} (ID: {self.name.lower().replace(' ', '_')})")
         print("- Interfaces: Card, Combatable, Rankable")
         print("- Rating: " + str(self.rating))
         print("- Record: " + str(self.wins) + "-" + str(self.losses))
+        print()
         return {
             "name": self.name,
             "rating": self.rating,

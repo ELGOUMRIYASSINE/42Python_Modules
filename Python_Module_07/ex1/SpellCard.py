@@ -1,7 +1,10 @@
 from ex0.Card import Card
 
+
 class SpellCard(Card):
+
     card_type = "spell"
+
     def __init__(self, name, cost, rarity, effect_type):
         super().__init__(name, cost, rarity)
         self.effect_type = effect_type
@@ -18,4 +21,3 @@ class SpellCard(Card):
             "effect_type": self.effect_type,
             "targets": targets
         }
-

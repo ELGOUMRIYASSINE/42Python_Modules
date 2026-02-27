@@ -2,6 +2,7 @@ from ex0.Card import Card
 from .Combatable import Combatable
 from .Magical import Magical
 
+
 class EliteCard(Card, Combatable, Magical):
     def __init__(self, name, cost, attack_power, defense, mana, rarity):
         super().__init__(name, cost, rarity)
@@ -10,7 +11,8 @@ class EliteCard(Card, Combatable, Magical):
         self.mana = mana
 
     def play(self):
-        return f"{self.name} has been played with attack power {self.attack_power} and defense {self.defense}."
+        return (f"{self.name} has been played with attack power "
+                f"{self.attack_power} and defense {self.defense}.")
 
     def attack(self, target):
         return {
