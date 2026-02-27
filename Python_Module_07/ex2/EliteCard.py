@@ -1,8 +1,3 @@
-import sys
-# sys.path.append("/home/yelgoumr/yelgoumr/1337_projects/42Python_Modules/Python_Module_07/")
-
-print(sys.path)
-
 from ex0.Card import Card
 from .Combatable import Combatable
 from .Magical import Magical

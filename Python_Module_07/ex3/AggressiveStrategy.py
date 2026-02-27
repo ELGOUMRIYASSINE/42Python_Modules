@@ -19,27 +19,36 @@ class AggressiveStrategy(GameStrategy):
         cards_played = []
         mana_used = 0
         damage_dealt = 0
+        remaining_mana = 5
 
+        sorted_hand = []
         for card in hand:
-            if card.card_type == "Creature":
+            inserted = False
+            for i in range(len(sorted_hand)):
+                if card.cost < sorted_hand[i].cost:
+                    sorted_hand.insert(i, card)
+                    inserted = True
+                    break
+            if not inserted:
+                sorted_hand.append(card)
+
+        for card in sorted_hand:
+            if card.cost <= remaining_mana:
+
                 cards_played.append(card.name)
                 mana_used += card.cost
-                damage_dealt += card.attack  # creature attack damage
+                remaining_mana -= card.cost
 
-            elif card.card_type == "Spell":
-                cards_played.append(card.name)
-                mana_used += card.cost
-                damage_dealt += 3  # simple fixed spell damage
-
-            # Ignore artifacts in aggressive strategy
-            elif card.card_type == "Artifact":
-                continue
+                if hasattr(card, "attack"):
+                    damage_dealt += card.attack
+                elif hasattr(card, "damage"):
+                    damage_dealt += card.damage
 
         targets = self.prioritize_targets(battlefield)
 
         return {
             "cards_played": cards_played,
             "mana_used": mana_used,
-            "targets_attacked": [target.name for target in targets],
+            "targets_attacked": [t.name for t in targets],
             "damage_dealt": damage_dealt
         }

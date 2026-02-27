@@ -1,4 +1,3 @@
-import sys
 from .CreatureCard import CreatureCard
 
 print("=== DataDeck Card Foundation ===\n")
