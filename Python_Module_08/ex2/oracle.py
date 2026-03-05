@@ -4,10 +4,14 @@ from dotenv import load_dotenv
 
 
 def load_configuration():
+    # Read environment variables from a .env file into os.environ.
+    # This keeps secrets and config out of source code.
+    if not os.path.exists(".env"):
+        print("ERROR: Missing .env file")
+        sys.exit(1)
     load_dotenv()
-    # here where the variables loaded from .env file are used,
-    # we can set MATRIX_MODE to "test" for testing purposes
-    # os.environ["MATRIX_MODE"] = "test"
+    # The configuration dictionary collects relevant settings with
+    # sensible defaults where appropriate.
     config = {
         "mode": os.getenv("MATRIX_MODE", "development"),
         "database": os.getenv("DATABASE_URL"),
@@ -19,23 +23,27 @@ def load_configuration():
 
 
 def validate_config(config):
+    # Simple validation: ensure required secrets (like API keys) exist.
     if not config["api_key"]:
         print("ERROR: Missing API_KEY")
         sys.exit(1)
 
 
 def main():
+    # Entry point for the module when run as a script.
     print("ORACLE STATUS: Reading the Matrix...\n")
 
     config = load_configuration()
     validate_config(config)
 
+    # Show loaded configuration (avoiding printing secrets in real apps).
     print("Configuration loaded:")
     print(f"Mode: {config['mode']}")
     print(f"Database: {config['database']}")
     print(f"Log Level: {config['log_level']}")
     print(f"Zion Endpoint: {config['zion']}")
 
+    # Basic environment checks — placeholders for more advanced checks.
     print("\nEnvironment security check:")
     print("[OK] No hardcoded secrets detected")
     print("[OK] .env file properly configured")

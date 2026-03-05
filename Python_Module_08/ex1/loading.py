@@ -31,19 +31,24 @@ import matplotlib.pyplot as plt
 import requests
 
 print("Analyzing Matrix data...")
+response = requests.get("https://api.open-meteo.com/v1/forecast?latitude=33.57&longitude=-7.59&hourly=temperature_2m")
+data = response.json()
+time = data["hourly"]["time"]
+temp = data["hourly"]["temperature_2m"]
+
 data = pd.DataFrame(
     {
-        "iteration": range(1000),
-        "energy": np.random.randint(0, 100, 1000)
+        "time": time,
+        "temperature": temp
     }
 )
-print("Processing 1000 data points...")
-plt.plot(data["iteration"], data["energy"])
-plt.title("Processing 1000 data points...")
-plt.xlabel("Iteration")
-plt.ylabel("Energy")
+
+print(f"Processing {len(data)} data points...")
+plt.plot(data["time"], data["temperature"])
+plt.title(f"Processing {len(data)} data points...")
+plt.xlabel("Time")
+plt.ylabel("Temperature")
 print("Generating visualization...")
-# plt.show()
 plt.savefig("matrix_analysis.png")
 print("Analysis complete!")
-print("Results saved to: matrix\_analysis.png}")
+print(f"Results saved to: {os.path.abspath('matrix_analysis.png')}")
