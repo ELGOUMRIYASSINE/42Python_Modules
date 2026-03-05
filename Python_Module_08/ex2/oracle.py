@@ -40,8 +40,9 @@ def main():
     print("Configuration loaded:")
     print(f"Mode: {config['mode']}")
     print(f"Database: {config['database']}")
+    print(f"Api Access: {'Authenticated' if config['api_key'] else 'Not Authenticated'}")
     print(f"Log Level: {config['log_level']}")
-    print(f"Zion Endpoint: {config['zion']}")
+    print(f"Zion Network: {config['zion']}")
 
     # Basic environment checks — placeholders for more advanced checks.
     print("\nEnvironment security check:")

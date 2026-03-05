@@ -30,7 +30,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import requests
 
-print("Analyzing Matrix data...")
+print("\nAnalyzing Matrix data...")
 response = requests.get("https://api.open-meteo.com/v1/forecast?latitude=33.57&longitude=-7.59&hourly=temperature_2m")
 data = response.json()
 time = data["hourly"]["time"]
@@ -50,5 +50,5 @@ plt.xlabel("Time")
 plt.ylabel("Temperature")
 print("Generating visualization...")
 plt.savefig("matrix_analysis.png")
-print("Analysis complete!")
-print(f"Results saved to: {os.path.abspath('matrix_analysis.png')}")
+print("\nAnalysis complete!")
+print(f"Results saved to: matrix_analysis.png')")
