@@ -1,0 +1,19 @@
+[project]
+name = "ex1"
+version = "0.1.0"
+description = "Matrix data loader"
+authors = [
+    {name = "Yassine Elgoumri", email = "elgoumriyassine6@gmail.com"}
+]
+requires-python = ">=3.10"
+
+dependencies = [
+    "requests>=2.31",
+    "pandas>=2.1",
+    "matplotlib>=3.7",
+    "numpy>=1.25"
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
