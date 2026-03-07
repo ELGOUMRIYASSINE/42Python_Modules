@@ -1,3 +1,5 @@
+from abc import ABC
+
 """
 CYBER ARCHIVES - DATA RECOVERY SYSTEM
 
@@ -12,7 +14,6 @@ class FileHandler:
     Manages opening and reading files with appropriate error handling
     and status messages.
     """
-
     def __init__(self, file_name):
         """
         Initialize the FileHandler.
@@ -61,8 +62,8 @@ class FileHandler:
                 print("\nData recovery complete. Storage unit disconnected.")
 
 
-file = FileHandler("ancient_fragment.txt")
+# file = FileHandler("ancient_fragment.txt")
 
-value = file.open_file()
-if value is not None:
-    file.read_file()
+# value = file.open_file()
+# if value is not None:
+#     file.read_file()
