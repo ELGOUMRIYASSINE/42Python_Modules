@@ -63,50 +63,56 @@ class SpaceMission(BaseModel):
 def run():
     print("Space Mission Crew Validation")
     print("=========================================")
-    mission1 = SpaceMission(
-        mission_id="M0438653",
-        mission_name="Deep Space Exploration",
-        destination="Proxima Centauri",
-        launch_date=datetime(2023, 10, 1),
-        duration_days=400,
-        crew=[
-            CrewMember(
-                member_id="C001",
-                name="Mehdi",
-                rank=RankEnum.commander,
-                age=45,
-                specialization="Engineering",
-                years_experience=12
-            ),
-            CrewMember(
-                member_id="C002",
-                name="Brahime",
-                rank=RankEnum.officer,
-                age=35,
-                specialization="Engineering",
-                years_experience=11
-            ),
-            CrewMember(
-                member_id="C0023",
-                name="Mounire",
-                rank=RankEnum.officer,
-                age=35,
-                specialization="Engineering",
-                years_experience=10
-            )
-        ],
-        budget_millions=2500.0
-    )
+    try:
+        mission1 = SpaceMission(
+            mission_id="M0438653",
+            mission_name="Deep Space Exploration",
+            destination="Proxima Centauri",
+            launch_date=datetime(2023, 10, 1),
+            duration_days=400,
+            crew=[
+                CrewMember(
+                    member_id="C001",
+                    name="Mehdi",
+                    rank=RankEnum.commander,
+                    age=45,
+                    specialization="Engineering",
+                    years_experience=12
+                ),
+                CrewMember(
+                    member_id="C002",
+                    name="Brahime",
+                    rank=RankEnum.officer,
+                    age=35,
+                    specialization="Engineering",
+                    years_experience=11
+                ),
+                CrewMember(
+                    member_id="C0023",
+                    name="Mounire",
+                    rank=RankEnum.officer,
+                    age=35,
+                    specialization="Engineering",
+                    years_experience=10
+                )
+            ],
+            budget_millions=2500.0
+        )
 
-    print("Valid mission created:")
-    print(f"Mission: {mission1.mission_name}")
-    print(f"Destination: {mission1.destination}")
-    print(f"Duration: {mission1.duration_days} days")
-    print(f"Budget: ${mission1.budget_millions}M")
-    print(f"Crew size: {len(mission1.crew)}")
-    print("Crew members:")
-    for crew_member in mission1.crew:
-        crew_member.__str__()
+        print("Valid mission created:")
+        print(f"Mission: {mission1.mission_name}")
+        print(f"Destination: {mission1.destination}")
+        print(f"Duration: {mission1.duration_days} days")
+        print(f"Budget: ${mission1.budget_millions}M")
+        print(f"Crew size: {len(mission1.crew)}")
+        print("Crew members:")
+        for crew_member in mission1.crew:
+            crew_member.__str__()
+    except Exception as e:
+        if e.errors()[0]['loc']:
+            print(f"{e.errors()[0]['loc'][0]}: {e.errors()[0]['msg']}")
+        else:
+            print(f"{e.errors()[0]['msg']}")
     print("=========================================")
     print("Expected validation error:")
     try:

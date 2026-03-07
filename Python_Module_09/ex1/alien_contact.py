@@ -41,24 +41,30 @@ def run():
     print("Alien Contact Log Validation")
     print("======================================")
     print("Valid contact report:")
-    alien_contact = AlienContact(
-        contact_id="AC12345",
-        timestamp=datetime.now(),
-        location="Unknown",
-        contact_type=ContactType.physical,
-        signal_strength=8.0,
-        duration_minutes=10,
-        witness_count=5,
-        message_received="Hello, Yassine!",
-        is_verified=True
-    )
-    print(f"ID: {alien_contact.contact_id}")
-    print(f"Type: {alien_contact.contact_type.value}")
-    print(f"Location: {alien_contact.location}")
-    print(f"Signal: {alien_contact.signal_strength}")
-    print(f"Duration: {alien_contact.duration_minutes}")
-    print(f"Witness: {alien_contact.witness_count}")
-    print(f"Message: {alien_contact.message_received}")
+    try:
+        alien_contact = AlienContact(
+            contact_id="AC12345",
+            timestamp=datetime.now(),
+            location="Unknown",
+            contact_type=ContactType.physical,
+            signal_strength=8.0,
+            duration_minutes=10,
+            witness_count=5,
+            message_received="Hello, Yassine!",
+            is_verified=True
+        )
+        print(f"ID: {alien_contact.contact_id}")
+        print(f"Type: {alien_contact.contact_type.value}")
+        print(f"Location: {alien_contact.location}")
+        print(f"Signal: {alien_contact.signal_strength}")
+        print(f"Duration: {alien_contact.duration_minutes}")
+        print(f"Witness: {alien_contact.witness_count}")
+        print(f"Message: {alien_contact.message_received}")
+    except Exception as e:
+        if e.errors()[0]['loc']:
+            print(f"{e.errors()[0]['loc'][0]}: {e.errors()[0]['msg']}")
+        else:
+            print(f"{e.errors()[0]['msg']}")
     print("======================================")
     try:
         alien_contact2 = AlienContact(
@@ -74,7 +80,10 @@ def run():
         print(alien_contact2)
     except Exception as e:
         print("Expected validation error:")
-        print(e.errors()[0]["msg"])
+        if e.errors()[0]['loc']:
+            print(f"{e.errors()[0]['loc'][0]}: {e.errors()[0]['msg']}")
+        else:
+            print(f"{e.errors()[0]['msg']}")
 
 
 run()

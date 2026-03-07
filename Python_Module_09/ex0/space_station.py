@@ -1,5 +1,5 @@
 from datetime import datetime
-from pydantic import BaseModel, Field, ValidationError
+from pydantic import BaseModel, Field
 from typing import Optional
 
 
@@ -19,7 +19,7 @@ def main():
     try:
         spacestation = SpaceStation(
             station_id="kk120",
-            name="yassine",
+            name="test name",
             crew_size=10,
             power_level=89.0,
             oxygen_level=40.0,
@@ -27,7 +27,6 @@ def main():
             is_operational=True,
             notes="aaaaaaa"
         )
-        print(spacestation.last_maintenance)
         print(f"Valid station created: {spacestation.station_id}")
         print(f"ID: {spacestation.station_id}")
         print(f"Name: {spacestation.name}")
@@ -35,11 +34,13 @@ def main():
         print(f"Power: {spacestation.power_level}%")
         print(f"Oxygen: {spacestation.oxygen_level}%")
         print(f"Status: {'Operational' if spacestation.is_operational else 'Not Operational'}\n")  # noqa: E501
-    except ValidationError as e:
-        print(f"Validation error: {e}")
+    except Exception as e:
+        if e.errors()[0]['loc']:
+            print(f"{e.errors()[0]['loc'][0]}: {e.errors()[0]['msg']}")
+        else:
+            print(f"{e.errors()[0]['msg']}")
     print("========================================")
     try:
-        print("Expected validation error:")
         spacestation = SpaceStation(
             station_id="kk120",
             name="yassine",
@@ -50,8 +51,12 @@ def main():
             is_operational=True,
             notes="aaaaaaa"
         )
-    except ValidationError as e:
-        print(f"{e.errors()[0]['msg']}")
+    except Exception as e:
+        print("Expected validation error:")
+        if e.errors()[0]['loc']:
+            print(f"{e.errors()[0]['loc'][0]}: {e.errors()[0]['msg']}")
+        else:
+            print(f"{e.errors()[0]['msg']}")
 
 
 main()
