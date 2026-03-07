@@ -119,7 +119,7 @@ def run():
             crew=[
                 CrewMember(
                     member_id="C001",
-                    name="Mehdi",
+                    name="mehdi",
                     rank=RankEnum.officer,
                     age=45,
                     specialization="Engineering",
@@ -145,7 +145,10 @@ def run():
             budget_millions=2500.0
         )
     except Exception as e:
-        print(e.errors()[0]['msg'])
+        if e.errors()[0]['loc']:
+            print(f"{e.errors()[0]['loc'][0]}: {e.errors()[0]['msg']}")
+        else:
+            print(f"{e.errors()[0]['msg']}")
 
 
 run()

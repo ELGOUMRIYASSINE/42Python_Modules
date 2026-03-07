@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from pydantic import BaseModel, Field, ValidationError
 from typing import Optional
 
@@ -28,6 +27,7 @@ def main():
             is_operational=True,
             notes="aaaaaaa"
         )
+        print(spacestation.last_maintenance)
         print(f"Valid station created: {spacestation.station_id}")
         print(f"ID: {spacestation.station_id}")
         print(f"Name: {spacestation.name}")
