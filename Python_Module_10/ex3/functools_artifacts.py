@@ -5,53 +5,103 @@ import time
 
 
 def spell_reducer(spells: list[int], operation: str) -> int:
+    """Reduce a list of spell values with the given operation.
+
+    Args:
+        spells: A list of integer spell strengths.
+        operation: One of 'add', 'mul', 'min', 'max'.
+
+    Returns:
+        The integer result of reducing the list with the chosen operation.
+    """
     operations = {
         "add": operator.add,
         "mul": operator.mul,
-        "sub": operator.sub,
-        "truediv": operator.truediv
+        "min": min,
+        "max": max
     }
     result = reduce(operations[operation], spells)
     return result
 
 
-def partial_enchanter(base_enchantment: Callable) -> dict[str, Callable]:
-    enchanters = {
-                  'fire_enchant': partial(base_enchantment, power=50),
-                  'ice_enchant': partial(base_enchantment, power=50),
-                  'lightning_enchant': partial(base_enchantment, power=50)
-                }
-    return enchanters[base_enchantment.__name__]
+def partial_enchanter(
+    base_enchantment: Callable[..., str],
+) -> dict[str, Callable[..., str]]:
+    """Create three partial enchantment functions from a base enchantment.
+
+    Args:
+        base_enchantment: A function accepting at least `power`,
+            `element`, and `target` and returning a string.
+
+    Returns:
+        A dict mapping enchantment names to partially-applied
+        callables that accept the remaining `target` argument.
+    """
+    return {
+        'fire_enchant': partial(
+            base_enchantment,
+            power=50,
+            element="fire",
+        ),
+        'ice_enchant': partial(
+            base_enchantment,
+            power=50,
+            element="ice",
+        ),
+        'lightning_enchant': partial(
+            base_enchantment,
+            power=50,
+            element="lightning",
+        ),
+    }
+
 
 @lru_cache(maxsize=None)
 def memoized_fibonacci(n: int) -> int:
+    """Return the n-th Fibonacci number using memoization.
+
+    Args:
+        n: Index of the Fibonacci sequence (non-negative).
+
+    Returns:
+        The n-th Fibonacci number as an integer.
+    """
     if n <= 1:
         return n
     return memoized_fibonacci(n - 1) + memoized_fibonacci(n - 2)
 
 
-def spell_dispatcher() -> callable:
+def spell_dispatcher() -> Callable[[object], str]:
+    """Create a singledispatch handler that maps types to spell descriptions.
+
+    Returns:
+        A callable that accepts a single argument and returns a
+        string describing the spell type.
+    """
     @singledispatch
-    def handle(value):
+    def handle(value: object) -> str:
         return "No move"
 
     @handle.register(int)
-    def handle_int(value):
+    def handle_int(value: int) -> str:
         return "dammage spell"
 
     @handle.register(str)
-    def handle_str(value):
+    def handle_str(value: str) -> str:
         return "healing spell"
 
     @handle.register(list)
-    def handle_float(value):
+    def handle_list(value: list) -> str:
         return "buff spell"
 
     return handle
 
 
+def test_all_functions() -> None:
+    """Run simple demonstrations for the utilities in this module.
 
-def test_all_functions():
+    Prints results for each helper to stdout; intended for manual verification.
+    """
 
     print("\n---- Testing spell_reducer ----")
 
@@ -59,26 +109,19 @@ def test_all_functions():
 
     print("Add:", spell_reducer(spells, "add"))
     print("Multiply:", spell_reducer(spells, "mul"))
-    print("Subtract:", spell_reducer(spells, "sub"))
+    print("min:", spell_reducer(spells, "min"))
+    print("max:", spell_reducer(spells, "max"))
 
     print("\n---- Testing partial_enchanter ----")
 
-    def fire_enchant(element: str, target: str, power: int) -> str:
-        return f"Enchanted {target} ==> {element} with power {power}"
+    def base_enchantment(power: int, element: str, target: str) -> str:
+        return f"Enchanted {target} => {element} with power {power}"
 
-    def ice_enchant(element: str, target: str, power: int) -> str:
-        return f"Enchanted {target} ==> {element} with power {power}"
+    enchanters = partial_enchanter(base_enchantment)
 
-    def lightning_enchant(element: str, target: str, power: int) -> str:
-        return f"Enchanted {target} ==> {element} with power {power}"
-
-    fire = partial_enchanter(fire_enchant)
-    ice = partial_enchanter(ice_enchant)
-    lightning = partial_enchanter(lightning_enchant)
-
-    print(fire(element="fire", target="sword"))
-    print(ice(element="ice", target="shield"))
-    print(lightning(element="lightning", target="axe"))
+    print(enchanters['fire_enchant'](target="Sword"))
+    print(enchanters['ice_enchant'](target="Shield"))
+    print(enchanters['lightning_enchant'](target="Axe"))
 
     print("\n---- Testing memoized_fibonacci ----")
 
@@ -94,10 +137,11 @@ def test_all_functions():
 
     dispatcher = spell_dispatcher()
 
-    print(dispatcher(50))     
-    print(dispatcher("fire"))        
-    print(dispatcher([10,20,30])) 
-    print(dispatcher({})) 
+    print(dispatcher(50))
+    print(dispatcher("fire"))
+    print(dispatcher([10, 20, 30]))
+    print(dispatcher({}))
 
 
-test_all_functions()
+if __name__ == "__main__":
+    test_all_functions()

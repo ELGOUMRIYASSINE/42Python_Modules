@@ -16,24 +16,31 @@ spells = [
 
 
 def artifact_sorter(artifacts: list[dict]) -> list[dict]:
-    return sorted(artifacts, key=lambda artifacts: artifacts["power"], reverse=True)
+    return sorted(
+        artifacts,
+        key=lambda artifacts: artifacts["power"],
+        reverse=True,
+    )
 
 
-def power_filter(mages, min_power):
-    return list(filter(lambda mage : mage['power'] >= min_power, mages))
+def power_filter(mages: list[dict], min_power: int) -> list[dict]:
+    return list(filter(lambda mage: mage['power'] >= min_power, mages))
 
 
-def spell_transformer(spells):
+def spell_transformer(spells: list[str]) -> list[str]:
     return list(map(lambda spell: "* " + spell + " *", spells))
 
 
-def mage_stats(mages):
+def mage_stats(mages: list[dict]) -> dict:
     result = {"max_power": None, "min_power": None, "avg_power": None}
     result["max_power"] = max(map(lambda mage: mage['power'], mages))
     result["min_power"] = min(map(lambda mage: mage['power'], mages))
-    result["avg_power"] = sum(map(lambda mage: mage['power'], mages)) / len(mages)
+    result["avg_power"] = (
+        sum(map(lambda mage: mage['power'], mages)) / len(mages)
+    )
 
     return result
+
 
 print("Testing artifact sorter...")
 print(artifact_sorter(mages))
